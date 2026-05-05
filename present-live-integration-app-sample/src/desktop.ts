@@ -2334,6 +2334,10 @@ async function bootSignedInApp() {
 export async function launch() {
     ensureStyles();
     document.body.innerHTML = `<div id="app"></div>`;
-    await initializeAuth();
-    renderSignIn();
+    const account = await initializeAuth();
+    if (account) {
+        await bootSignedInApp();
+    } else {
+        renderSignIn();
+    }
 }
